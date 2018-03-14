@@ -7,7 +7,7 @@ const Ranks = ({name, enteries}) => {
 	        	{`${name} , your current entry count is...`}
 	    	</div>
 	        <div className='red f1 '>
-	        	#{enteries}
+	        	{enteries}
 	        </div>
        </div>
     )
