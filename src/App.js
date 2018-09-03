@@ -11,9 +11,9 @@ import SignInForm from './Components/SignInForm';
 import particlesOptions from './Components/particlesOptions' ;
 import Register from './Components/Register' ;
 
-  
+
 const app = new Clarifai.App({
- apiKey: 'eba59ccb01e7473bac21be576dfd6246'
+  apiKey: 'eba59ccb01e7473bac21be576dfd6246'
 });
 
 class App extends Component {
@@ -38,11 +38,11 @@ class App extends Component {
 
   loadUser = (data) => {
     this.setState({user:{
-        id:data.id,
-        name:data.name,
-        email:data.email,
-        enteries:data.enteries,
-        joined:data.joined
+      id:data.id,
+      name:data.name,
+      email:data.email,
+      enteries:data.enteries,
+      joined:data.joined
     }})
   }
 
@@ -88,48 +88,48 @@ class App extends Component {
     .then (response => {
       if(response){
         fetch('http://localhost:3000/picture',{
-                 'method':'put',
-                 "headers":{'Content-Type': 'application/json'},
-                 "body": JSON.stringify({
-                  id:this.state.user.id
-                 })})
-              .then(response => response.json())
-              .then(count =>{
-                this.setState(Object.assign(this.state.user, {enteries:count}))
-              })
+          'method':'put',
+          "headers":{'Content-Type': 'application/json'},
+          "body": JSON.stringify({
+            id:this.state.user.id
+          })})
+        .then(response => response.json())
+        .then(count =>{
+          this.setState(Object.assign(this.state.user, {enteries:count}))
+        })
       }
 
       this.faceBox(this.faceLocation(response))})
     .catch (err => console.log(err))
   }
- 
+
   render() {
     const { route, box, imageurl, isSignedIn } = this.state;
     return (
       <div className="App">
-        <Particles className = 'particles'
-              params = {particlesOptions()} 
-        />
-          <Navigation isSignedIn = {isSignedIn} OnRouteChange = {this.OnRouteChange}/>
-          {route === 'signin'?
-          <SignInForm loadUser = {this.loadUser} OnRouteChange = {this.OnRouteChange}/>
-          :route === 'register'?
-          <Register loadUser = {this.loadUser} OnRouteChange = {this.OnRouteChange}/>
-          :route === 'signout'?
-          <SignInForm loadUser = {this.loadUser} OnRouteChange = {this.OnRouteChange}/>
-          : <div>
-            <Logo/>
-          <Ranks name={this.state.user.name} enteries={this.state.user.enteries}/> 
-          <ImageLinkForm 
-            OnClickChange = {this.OnClickChange} 
-            OnInputChange = {this.OnInputChange}
-          />
-        <FaceRec box={box} imageurl = {imageurl}/>
-            </div>
-          }
-        </div>
+      <Particles className = 'particles'
+      params = {particlesOptions()} 
+      />
+      <Navigation isSignedIn = {isSignedIn} OnRouteChange = {this.OnRouteChange}/>
+      {route === 'signin'?
+      <SignInForm loadUser = {this.loadUser} OnRouteChange = {this.OnRouteChange}/>
+      :route === 'register'?
+      <Register loadUser = {this.loadUser} OnRouteChange = {this.OnRouteChange}/>
+      :route === 'signout'?
+      <SignInForm loadUser = {this.loadUser} OnRouteChange = {this.OnRouteChange}/>
+      : <div>
+      <Logo/>
+      <Ranks name={this.state.user.name} enteries={this.state.user.enteries}/> 
+      <ImageLinkForm 
+      OnClickChange = {this.OnClickChange} 
+      OnInputChange = {this.OnInputChange}
+      />
+      <FaceRec box={box} imageurl = {imageurl}/>
+      </div>
+    }
+    </div>
     );
   }
-  }
-  
+}
+
 export default App;
